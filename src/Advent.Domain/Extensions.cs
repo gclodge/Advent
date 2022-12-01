@@ -32,4 +32,14 @@ public static class Extensions
     {
         return Parse(file).Select(x => deserialize(x));
     }
+
+    public static ulong Sum(this IEnumerable<ulong> elements)
+    {
+        ulong sum = 0;
+        foreach (var ele in elements)
+        {
+            sum += ele;
+        }
+        return sum;
+    }
 }

@@ -1,5 +1,14 @@
 ﻿namespace Advent.Domain;
 
+public enum HalfSplit
+{
+    Top,
+    Bottom,
+    None
+}
+
+//< TODO: Maybe add, like, some comments, man?
+
 public static class Functions
 {
     public static int? FindRecordsThatSumTo(IEnumerable<int> recs, int sumValue, int len)
@@ -62,5 +71,68 @@ public static class Functions
             }
         }
         return res;
+    }
+
+    public static IEnumerable<IEnumerable<string>> SplitByByElement(IEnumerable<string> recs, string element)
+    {
+        var groups = new List<List<string>>();
+        var currGroup = new List<string>();
+        for (int i = 0; i < recs.Count(); i++)
+        {
+            string item = recs.ElementAt(i);
+            if (item != element)
+            {
+                currGroup.Add(item);
+            }
+            else
+            {
+                groups.Add(currGroup);
+                currGroup = new List<string>();
+            }
+        }
+
+        if (currGroup.Count > 0)
+        {
+            groups.Add(currGroup);
+        }
+
+        return groups;
+    }
+
+    public static IEnumerable<T> SplitInHalf<T>(IEnumerable<T> recs, HalfSplit split)
+    {
+        int halfCount = recs.Count() / 2;
+        return split switch
+        {
+            HalfSplit.Top => recs.Skip(halfCount),
+            HalfSplit.Bottom => recs.Take(halfCount),
+            _ => recs,
+        };
+    }
+
+    public static IEnumerable<T[]> CartesianProduct<T>(IList<T> items, int repeat)
+    {
+        var total = (int)Math.Pow(items.Count, repeat);
+        var res = new T[repeat];
+        for (var i = 0; i != total; i++)
+        {
+            var n = i;
+            for (var j = repeat - 1; j >= 0; j--)
+            {
+                res[j] = items[n % items.Count];
+                n /= items.Count;
+            }
+            yield return res;
+        }
+    }
+
+    public static List<int> GetAllIndicesOf(string exp, HashSet<char> targets)
+    {
+        var indices = new List<int>();
+        foreach (int i in Enumerable.Range(0, exp.Length))
+        {
+            if (targets.Contains(exp[i])) indices.Add(i);
+        }
+        return indices;
     }
 }

@@ -2,7 +2,6 @@
 
 public class ElfCalorieCounter
 {
-
     private readonly List<string> _input;
 
     public ElfCalorieCounter(IEnumerable<string> input)

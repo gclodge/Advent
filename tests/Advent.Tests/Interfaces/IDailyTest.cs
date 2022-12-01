@@ -8,8 +8,6 @@ public interface IDailyTest
 
     int Year { get; }
 
-    string Input { get; }
-
     [Fact]
     void PartOne();
 

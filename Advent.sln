@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advent.Domain", "src\Advent.Domain\Advent.Domain.csproj", "{A12C61BE-DC49-49A0-B659-E2BBC231357C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Advent.Domain", "src\Advent.Domain\Advent.Domain.csproj", "{A12C61BE-DC49-49A0-B659-E2BBC231357C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advent.2021", "src\Advent.2021\Advent.2021.csproj", "{6F7EFC39-2380-4F5F-A7DF-9B646142C190}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Advent.2021", "src\Advent.2021\Advent.2021.csproj", "{6F7EFC39-2380-4F5F-A7DF-9B646142C190}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advent.2022", "src\Advent.2022\Advent.2022.csproj", "{855E3F2E-590C-4B01-826E-C69B0DE27EA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Advent.2022", "src\Advent.2022\Advent.2022.csproj", "{855E3F2E-590C-4B01-826E-C69B0DE27EA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advent.Tests", "tests\Advent.Tests\Advent.Tests.csproj", "{4421BBE1-B55A-499C-BF44-5C79DB706F4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Advent.Tests", "tests\Advent.Tests\Advent.Tests.csproj", "{4421BBE1-B55A-499C-BF44-5C79DB706F4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advent.2020", "src\Advent.2020\Advent.2020.csproj", "{A9F87E1C-0F4F-4680-AB23-1DAC8C255ED6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{4421BBE1-B55A-499C-BF44-5C79DB706F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4421BBE1-B55A-499C-BF44-5C79DB706F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4421BBE1-B55A-499C-BF44-5C79DB706F4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9F87E1C-0F4F-4680-AB23-1DAC8C255ED6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9F87E1C-0F4F-4680-AB23-1DAC8C255ED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9F87E1C-0F4F-4680-AB23-1DAC8C255ED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9F87E1C-0F4F-4680-AB23-1DAC8C255ED6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
