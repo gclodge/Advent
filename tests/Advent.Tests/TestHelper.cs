@@ -2,16 +2,20 @@ global using Advent.Domain;
 
 using System;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 
 namespace Advent.Tests;
 
 public class TestHelper
 {
-    static readonly Assembly Self = Assembly.GetExecutingAssembly();
+    public const string InputDirectoryRootVarName = "ADVENT_INPUT_DIR_ROOT";
 
-    private const string TestDir = "Inputs";
+    public static string GetInputDirectory()
+    {
+        var dir = Environment.GetEnvironmentVariable(InputDirectoryRootVarName);
+        if (dir == null) throw new ArgumentNullException($"{InputDirectoryRootVarName} is not set - cannot locate input directory");
+
+        return dir;
+    }
 
     public static string GetInputFile(IDailyTest dt)
     {
@@ -25,8 +29,6 @@ public class TestHelper
 
     private static string GetFile(IDailyTest dt, string kernel)
     {
-        if (TestDir == null) throw new NullReferenceException($"ERROR :: TestDirectory not set!");
-
-        return Path.Combine(TestDir, $"{dt.Year}", $"Day.{dt.Number.ToString().PadLeft(2, '0')}.{kernel}.txt");
+        return Path.Combine(GetInputDirectory(), $"{dt.Year}", $"Day.{dt.Number.ToString().PadLeft(2, '0')}.{kernel}.txt");
     }
 }
