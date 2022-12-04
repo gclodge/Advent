@@ -4,7 +4,6 @@ namespace Advent._2022;
 
 public class Rucksack
 {
-    public const char Delim = ' ';
     private readonly string _input;
 
     public int Length => _input.Length;

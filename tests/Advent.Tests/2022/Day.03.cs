@@ -39,7 +39,6 @@ public class Day03 : IDailyTest
         Assert.Equal(ExpectedBadge, badgeSum);
     }
 
-
     [Fact]
     public void PartOne()
     {
