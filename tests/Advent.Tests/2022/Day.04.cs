@@ -35,8 +35,7 @@ public class Day04 : IDailyTest
         int ExpectedOverlapCount = 4;
         Assert.Equal(ExpectedContainedCount, contain.Count);
         Assert.Equal(ExpectedOverlapCount, overlap.Count);
-    }
-        
+    }   
 
     [Fact]
     public void PartOne()
