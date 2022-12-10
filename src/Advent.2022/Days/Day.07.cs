@@ -2,7 +2,7 @@
 
 namespace Advent._2022;
 
-class File
+class FileObject
 {
     public string Name { get; private set; } = string.Empty;
     public string Directory { get; private set; } = string.Empty;
@@ -11,7 +11,7 @@ class File
 
     public long Size { get; private set; }
 
-    public File(string dir, string line)
+    public FileObject(string dir, string line)
     {
         Directory = dir;
 
@@ -42,7 +42,7 @@ public class FileSystemBrowser
 
     private readonly ICollection<string> _input;
 
-    private readonly ICollection<File> _files = new List<File>();
+    private readonly ICollection<FileObject> _files = new List<FileObject>();
 
     private readonly IDictionary<string, long> _dirs = new Dictionary<string, long>();
 
@@ -72,7 +72,7 @@ public class FileSystemBrowser
 
             if (line.StartsWith("dir")) continue;
 
-            var file = new File(GetPath(Path), line);
+            var file = new FileObject(GetPath(Path), line);
             _files.Add(file);
         }
     }
