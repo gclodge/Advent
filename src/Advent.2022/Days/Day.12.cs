@@ -93,28 +93,27 @@ public class HillClimber
     public IEnumerable<HillNode> FindPath(bool partOne = true)
     {
         HillNode target = _elevMap[End];
-        if (partOne) return FindPathAStar(_elevMap[Start], target);
 
-        var paths = _starts.Select(p => FindPathAStar(_elevMap[p], target))
-                           .Where(p => p.Any()).ToList();
+        var starts = partOne ? new HillNode[1] { _elevMap[Start] } :
+                               _starts.Select(s => _elevMap[s]).ToArray();
 
-        return paths.OrderBy(p => p.Count()).First();
+        return FindPathAStar(starts, target);
     }
 
-    public IEnumerable<HillNode> FindPathAStar(HillNode start, HillNode target)
+    public IEnumerable<HillNode> FindPathAStar(IEnumerable<HillNode> starts, HillNode target)
     {
         var pq = new PriorityQueue<HillNode, int>();
-        pq.Enqueue(start, 0);
-
         Dictionary<HillNode, HillNode> from = new();
-        Dictionary<HillNode, int> gScore = new()
+        Dictionary<HillNode, int> gScore = new();
+        Dictionary<HillNode, int> fScore = new();
+
+        foreach (var start in starts)
         {
-            { start, 0 }
-        };
-        Dictionary<HillNode, int> fScore = new()
-        {
-            { start, ComputeHeuristic(start, target) }
-        };
+            pq.Enqueue(start, 0);
+
+            gScore[start] = 0;
+            fScore[start] = ComputeHeuristic(start, target);
+        }
 
         while (pq.Count > 0)
         {
