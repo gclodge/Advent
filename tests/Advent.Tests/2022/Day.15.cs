@@ -19,10 +19,10 @@ public class Day15 : IDailyTest
         var input = Test.Parse();
 
         var ess = new EmergencySensorSystem(input);
-        int blocked = ess.CountBlockedPositions(20);
+        long blocked = ess.CountBlockedPositions(20);
         long freq = ess.FindTuningFrequency(20);
 
-        int ExpectedBlocked = 26;
+        long ExpectedBlocked = 26;
         long ExpectedFreq = 56000011;
         Assert.Equal(ExpectedBlocked, blocked);
         Assert.Equal(ExpectedFreq, freq);
@@ -34,9 +34,9 @@ public class Day15 : IDailyTest
         var input = Input.Parse();
 
         var ess = new EmergencySensorSystem(input);
-        int blocked = ess.CountBlockedPositions(2000000);
+        long blocked = ess.CountBlockedPositions(2000000);
 
-        int ExpectedBlocked = 5073496;
+        long ExpectedBlocked = 5073496;
         Assert.Equal(ExpectedBlocked, blocked);
     }
 

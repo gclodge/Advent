@@ -1,10 +1,4 @@
-﻿using Advent.Domain;
-
-using System.Diagnostics;
-
-using IntervalTree;
-
-namespace Advent._2022;
+﻿namespace Advent._2022;
 
 public class EmergencySensorSystem
 {
@@ -20,18 +14,6 @@ public class EmergencySensorSystem
 
         public long MinXAt(long y) => X - ManhattanDist + Math.Abs(Y - y);
         public long MaxXAt(long y) => X + ManhattanDist - Math.Abs(Y - y);
-
-        public long MinY => Y + ManhattanDist / 2
-
-        public IEnumerable<long> GetXValues(long targetY)
-        {
-            long dY = Math.Abs(targetY - Y);
-
-            long start = X - (ManhattanDist - dY);
-            long len = 2 * (ManhattanDist - dY);
-
-            return Enumerable.Range(0, (int)len).Select(x => start + x);
-        }
 
         public static Sensor Generate(string line)
         {
@@ -65,15 +47,15 @@ public class EmergencySensorSystem
         _sensors = _input.Select(x => Sensor.Generate(x)).ToList();
     }
 
-    public int CountBlockedPositions(int Y)
+    public long CountBlockedPositions(int Y)
     {
-        var tree = GenerateIntervalTree(_sensors);
+        var ranges = _sensors.Select(s => new long[] { s.MinXAt(Y), s.MaxXAt(Y) }).ToList();
+        ranges.Sort((x, y) => x[0].CompareTo(y[0]));
 
-        var overlap = tree.Query(Y);
+        (_, long[] res) = Merge(ranges);
 
-        var xValues = overlap.SelectMany(x => x.GetXValues(Y)).ToHashSet();
-
-        return xValues.Count;
+        long count = Math.Abs(res[1] - res[0]);
+        return count;
     }
 
     public long FindTuningFrequency(long maxY)
@@ -82,27 +64,31 @@ public class EmergencySensorSystem
         {
             var bounds = GetBoundsAt(y, maxY);
 
-            bool merged = true;
+            (bool merged, long[] res) = Merge(bounds);
 
-            while (merged && bounds.Count > 1)
-            {
-                merged = false;
-
-                if (bounds[0][0] <= bounds[1][0] && bounds[0][1] >= bounds[1][0])
-                {
-                    bounds[0][1] = Math.Max(bounds[0][1], bounds[1][1]);
-                    bounds.RemoveAt(1);
-                    merged = true;
-                }
-            }
-
-            if (!merged || bounds[0][0] != 0 || bounds[0][1] != maxY)
-            {
-                return (bounds[0][1] + 1) * 4000000 + y;
-            }
+            if (!merged || res[0] != 0 || res[1] != maxY) return (res[1] + 1) * 4000000 + y;
         }
 
         return -1;
+    }
+
+    static (bool merged, long[] res) Merge(List<long[]> bounds)
+    {
+        bool merged = true;
+
+        while (merged && bounds.Count > 1)
+        {
+            merged = false;
+
+            if (bounds[0][0] <= bounds[1][0] && bounds[0][1] >= bounds[1][0])
+            {
+                bounds[0][1] = Math.Max(bounds[0][1], bounds[1][1]);
+                bounds.RemoveAt(1);
+                merged = true;
+            }
+        }
+
+        return (merged, bounds[0]);
     }
 
     List<long[]> GetBoundsAt(long Y, long maxY)
@@ -114,20 +100,5 @@ public class EmergencySensorSystem
         bounds.Sort((x, y) => x[0].CompareTo(y[0]));
 
         return bounds;
-    }
-
-    static IntervalTree<long, Sensor> GenerateIntervalTree(IEnumerable<Sensor> sensors, bool vertical = true)
-    {
-        var tree = new IntervalTree<long, Sensor>();
-
-        foreach (var sensor in sensors)
-        {
-            long a = vertical ? sensor.Y - sensor.ManhattanDist : sensor.X + sensor.ManhattanDist;
-            long b = vertical ? sensor.Y + sensor.ManhattanDist : sensor.X - sensor.ManhattanDist;
-
-            tree.Add(a, b, sensor);
-        }
-
-        return tree;
     }
 }
