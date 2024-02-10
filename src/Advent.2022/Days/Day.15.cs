@@ -1,4 +1,9 @@
-﻿namespace Advent._2022;
+﻿using Themis.Geometry;
+using Themis.Geometry.Lines;
+using Themis.Index.QuadTree;
+//using MathNet.Numerics.LinearAlgebra;
+
+namespace Advent._2022;
 
 public class EmergencySensorSystem
 {
@@ -14,6 +19,32 @@ public class EmergencySensorSystem
 
         public long MinXAt(long y) => X - ManhattanDist + Math.Abs(Y - y);
         public long MaxXAt(long y) => X + ManhattanDist - Math.Abs(Y - y);
+        public long MinYAt(long x) => Y - ManhattanDist + Math.Abs(X - x);
+        public long MaxYAt(long x) => Y + ManhattanDist - Math.Abs(X - x);
+
+        public LineSegment[] GetEdges()
+        {
+            var btm = new long[2] { X, MinYAt(X) };
+            var top = new long[2] { X, MaxYAt(X) };
+            var left = new long[2] { MinXAt(Y), Y };
+            var right = new long[2] { MaxXAt(X), Y };
+
+            return new LineSegment[4]
+            {
+                Generate(left, top),
+                Generate(top, right),
+                Generate(right, btm),
+                Generate(btm, left)
+            };
+        }
+
+        static LineSegment Generate(long[] min, long[] max)
+        {
+            var A = min.Select(l => (double)l).ToVector();
+            var B = max.Select(l => (double)l).ToVector();
+
+            return new LineSegment(A, B);
+        }
 
         public static Sensor Generate(string line)
         {
@@ -57,6 +88,27 @@ public class EmergencySensorSystem
         long count = Math.Abs(res[1] - res[0]);
         return count;
     }
+
+    public long ThemisFindFrequency(long maxValue)
+    {
+        var edges = _sensors.SelectMany(s => s.GetEdges()).ToList();
+
+        var tree = new QuadTree<LineSegment>();
+        edges.ForEach(seg => tree.Add(seg, seg.Envelope));
+
+        foreach (var edge in edges)
+        {
+            var query = tree.QueryDistinct(edge.Envelope).ToArray();
+
+            //< Now what? Look for intersection..
+        }
+
+
+        //< Foreach seg, query tree to get covering segments, get intersections, bounce if point found!
+
+        throw new NotImplementedException();
+    }
+
 
     public long FindTuningFrequency(long maxY)
     {

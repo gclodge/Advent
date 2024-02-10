@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="RangeTree" Version="3.0.1" />
+    <PackageReference Include="Themis.Geometry" Version="2022.10.27" />
+    <PackageReference Include="Themis.Index" Version="2022.10.27" />
   </ItemGroup>
 
   <ItemGroup>
