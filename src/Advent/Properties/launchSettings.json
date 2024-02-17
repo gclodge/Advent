@@ -2,7 +2,7 @@
   "profiles": {
     "Advent": {
       "commandName": "Project",
-      "commandLineArgs": "run day 2023 1"
+      "commandLineArgs": "run day 2023 2"
     }
   }
 }

@@ -16,6 +16,7 @@ public sealed class SolutionFactory : ISolutionFactory
         return day switch
         {
             1 => new Application.Solutions._2023.Trebuchet(),
+            2 => new Application.Solutions._2023.CubeConundrum(),
             _ => null
         };
     }
