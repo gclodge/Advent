@@ -2,7 +2,6 @@
 
 public sealed class CubeConundrum : ISolution
 {
-
     public async Task RunAsync(string input)
     {
         var games = await ParseGames(input);

@@ -54,6 +54,7 @@ public sealed class RunDayCommand : AsyncCommand<RunDayCommand.Settings>
 
         timer.Stop();
 
+        Helper.WriteDivider("Finished");
         Helper.Write($"Done: {settings.Name.Yellow()} in [green]{timer.Elapsed.TotalMilliseconds:0.00} ms[/]");
 
         return 0;
