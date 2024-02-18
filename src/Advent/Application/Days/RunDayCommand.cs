@@ -2,7 +2,10 @@
 
 namespace Advent.Console.Application.Days;
 
-public sealed class RunDayCommand : AsyncCommand<RunDayCommand.Settings>
+public sealed class RunDayCommand(
+    IInputService input,
+    ISolutionFactory solutions) 
+    : AsyncCommand<RunDayCommand.Settings>
 {
     public class Settings : CommandSettings
     {
@@ -21,16 +24,8 @@ public sealed class RunDayCommand : AsyncCommand<RunDayCommand.Settings>
         public string Name => $"{Year} Day {Day}";
     }
 
-    private readonly IInputService _input;
-    private readonly ISolutionFactory _solutions;
-
-    public RunDayCommand(
-        IInputService input,
-        ISolutionFactory solutions)
-    {
-        _input = input;
-        _solutions = solutions;
-    }
+    private readonly IInputService _input = input;
+    private readonly ISolutionFactory _solutions = solutions;
 
     public override async Task<int> ExecuteAsync(CommandContext context, Settings settings)
     {

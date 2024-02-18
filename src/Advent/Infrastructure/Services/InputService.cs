@@ -22,10 +22,10 @@ public sealed class InputService : IInputService
     {
         string dd = day.ToString().PadLeft(2, '0');
         string yyyy = year.ToString();
-        var file = Path.Combine(_options.SourceDirectory, yyyy, $"Day.{dd}.txt");
+        var file = Path.Combine(_options.SourceDirectory, yyyy, isTest ? $"Day.{dd}.Test.txt" : $"Day.{dd}.txt");
 
         if (!File.Exists(file)) throw new FileNotFoundException($"Couldn't find input file: {file}");
 
-        return isTest ? Path.ChangeExtension(file, ".Test.txt") : file;
+        return file;
     }
 }

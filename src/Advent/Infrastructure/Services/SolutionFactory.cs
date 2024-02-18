@@ -18,6 +18,7 @@ public sealed class SolutionFactory : ISolutionFactory
             1 => new Application.Solutions._2023.Trebuchet(),
             2 => new Application.Solutions._2023.CubeConundrum(),
             3 => new Application.Solutions._2023.GearRatios(),
+            4 => new Application.Solutions._2023.ScratchCards(),
             _ => null
         };
     }
