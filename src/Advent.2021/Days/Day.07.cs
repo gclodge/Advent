@@ -27,9 +27,21 @@ public class CrabAligner
                           .Sum();
     }
 
-    int GetPositionOffset(int pos, int index, bool isGauss = false)
+
+    /// <summary>
+    /// We use Gaussian Summation to calculate the sum of the pattern [n, n - 1, .., 1, 0] = n * (n + 1) / 2
+    /// <para>See: https://letstalkscience.ca/educational-resources/backgrounders/gauss-summation</para>
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="index"></param>
+    /// <param name="gauss"></param>
+    /// <returns></returns>
+    static int GetPositionOffset(
+        int pos,
+        int index,
+        bool gauss = false)
     {
         int offset = Math.Abs(pos - index);
-        return isGauss ? offset * (offset + 1) / 2 : offset;
+        return gauss ? offset * (offset + 1) / 2 : offset;
     }
 }

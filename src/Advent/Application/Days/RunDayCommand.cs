@@ -11,7 +11,7 @@ public sealed class RunDayCommand(
     {
         [CommandArgument(0, "<YEAR>")]
         [Description("The four-digit year for the command to be run")]
-        public int Year { get; set; } = 2023;
+        public int Year { get; set; } = 2024;
 
         [CommandArgument(1, "<DAY>")]
         [Description("The integer day-of-december in range [1, 25] to be run")]
