@@ -1,6 +1,4 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace Advent.Console.Application.Solutions._2024;
+﻿namespace Advent.Console.Application.Solutions._2024;
 
 public sealed class HistorianHysteria : ISolution
 {

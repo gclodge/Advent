@@ -32,6 +32,7 @@ public sealed class SolutionFactory : ISolutionFactory
         return day switch
         {
             1 => new Application.Solutions._2024.HistorianHysteria(),
+            2 => new Application.Solutions._2024.RedNosedReports(),
             _ => null
         };
     }
