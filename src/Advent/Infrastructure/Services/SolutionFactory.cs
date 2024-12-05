@@ -35,6 +35,7 @@ public sealed class SolutionFactory : ISolutionFactory
             2 => new Application.Solutions._2024.RedNosedReports(),
             3 => new Application.Solutions._2024.TobogganMultiplier(),
             4 => new Application.Solutions._2024.CeresSearch(),
+            5 => new Application.Solutions._2024.PrintQueue(),
             _ => null
         };
     }
